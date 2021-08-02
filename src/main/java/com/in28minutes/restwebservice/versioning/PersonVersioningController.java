@@ -16,6 +16,7 @@ public class PersonVersioningController {
         return new PersonV2(new Name("Nach", "Peralta"));
     }
 
+    // REQUEST PARAM
     @GetMapping(value = "/person/param", params = "version=1")
     public PersonV1 paramV1(){
         return new PersonV1("Nacho Peralta");
@@ -25,4 +26,28 @@ public class PersonVersioningController {
     public PersonV2 paramV2(){
         return new PersonV2(new Name("Nacho", "Peralta"));
     }
+
+
+    // HEADER PARAM
+    @GetMapping(value = "/person/headers", headers = "X-API-VERSION=1")
+    public PersonV1 headerV1(){
+        return new PersonV1("Nacho Peralta");
+    }
+
+    @GetMapping(value = "/person/headers", headers = "X-API-VERSION=2")
+    public PersonV2 headerV2(){
+        return new PersonV2(new Name("Nacho", "Peralta"));
+    }
+
+    // PRODUCES or ACCEPT HEADER VERSIONING or MIME TYPE
+    @GetMapping(value = "/person/produces", produces = "application/vnd.company.app-v1+json")
+    public PersonV1 producesV1(){
+        return new PersonV1("Nacho Peralta");
+    }
+
+    @GetMapping(value = "/person/produces", produces = "application/vnd.company.app-v2+json")
+    public PersonV2 producesV2(){
+        return new PersonV2(new Name("Nacho", "Peralta"));
+    }
+
 }
